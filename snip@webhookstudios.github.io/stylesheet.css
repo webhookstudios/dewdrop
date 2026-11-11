@@ -1,0 +1,22 @@
+.snip-shade {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.snip-frame {
+    border: 2px solid #3584e4;
+}
+
+.snip-size,
+.snip-hint {
+    background-color: rgba(30, 30, 30, 0.85);
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 10pt;
+}
+
+.snip-hint {
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 11pt;
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.snip" path="/org/gnome/shell/extensions/snip/">
+    <key name="shortcut-region" type="as">
+      <default><![CDATA[['Print']]]></default>
+      <summary>Capture an area or a window you click</summary>
+    </key>
+    <key name="shortcut-window" type="as">
+      <default><![CDATA[['<Alt>Print']]]></default>
+      <summary>Capture a window</summary>
+    </key>
+    <key name="shortcut-screen" type="as">
+      <default><![CDATA[['<Shift>Print']]]></default>
+      <summary>Capture the screen under the pointer</summary>
+    </key>
+    <key name="shortcut-all-screens" type="as">
+      <default><![CDATA[['<Control>Print']]]></default>
+      <summary>Capture all screens</summary>
+    </key>
+    <key name="take-over-shell-keys" type="b">
+      <default>true</default>
+      <summary>Free GNOME's own screenshot keys while Snip is on</summary>
+      <description>GNOME's screenshot shortcuts that use the same keys as Snip are blanked while the extension is enabled and put back when it is disabled.</description>
+    </key>
+    <key name="saved-shell-keys" type="s">
+      <default>''</default>
+      <summary>GNOME screenshot keys to put back (JSON, internal)</summary>
+    </key>
+    <key name="show-indicator" type="b">
+      <default>true</default>
+      <summary>Show the Snip menu in the top bar</summary>
+    </key>
+  </schema>
+</schemalist>

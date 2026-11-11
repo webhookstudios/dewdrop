@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5fd38d"/><stop offset="1" stop-color="#1f8a5b"/></linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="26" fill="url(#bg)"/>
+  <!-- Selection corners -->
+  <g stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M28 46V28H46"/><path d="M82 28H100V46"/><path d="M100 82V100H82"/><path d="M46 100H28V82"/>
+  </g>
+  <!-- Annotation arrow -->
+  <path d="M46 82L76 52" stroke="#ffd43b" stroke-width="7" stroke-linecap="round"/>
+  <path d="M60 50H78V68" stroke="#ffd43b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
