@@ -37,6 +37,8 @@ class SnipApplication(Adw.Application):
 
     def do_startup(self):
         Adw.Application.do_startup(self)
+        from . import sedge
+        sedge.apply()
         self.cfg = Config()
         clean_cache()
         display = Gdk.Display.get_default()
@@ -97,7 +99,7 @@ class SnipApplication(Adw.Application):
                 cmdline.print_literal(USAGE)
                 return 0
             elif a == '--version':
-                cmdline.print_literal(f'Snip {__version__}\n')
+                cmdline.print_literal(f'Dewdrop {__version__}\n')
                 return 0
             elif a.startswith('--') or a.startswith('-'):
                 if a.startswith('--gapplication'):
@@ -179,7 +181,7 @@ class SnipApplication(Adw.Application):
             dest = next_save_path(self.cfg, folder=folder)
             write_image(load_surface(path), dest, self.cfg['jpeg_quality'])
         except (OSError, GLib.Error) as e:
-            self.notify('Snip could not save the screenshot', str(getattr(e, 'message', e)))
+            self.notify('Dewdrop could not save the screenshot', str(getattr(e, 'message', e)))
             return
         if self.cfg['copy_after_save']:
             self.copy_file(path)
@@ -190,7 +192,7 @@ class SnipApplication(Adw.Application):
         try:
             win = EditorWindow(self, path, origin)
         except Exception as e:  # noqa: BLE001 - any unreadable picture
-            self.notify('Snip could not open the picture', str(e))
+            self.notify('Dewdrop could not open the picture', str(e))
             return None
         win.present()
         return win
@@ -226,12 +228,12 @@ class SnipApplication(Adw.Application):
 
     def show_about(self):
         about = Adw.AboutDialog(
-            application_name='Snip', application_icon=APP_ID, version=__version__,
+            application_name='Dewdrop', application_icon=APP_ID, version=__version__,
             developer_name='webhookstudios',
             website='https://github.com/webhookstudios/snip',
             issue_url='https://github.com/webhookstudios/snip/issues',
             license_type=Gtk.License.GPL_2_0,
-            comments='Screenshots with arrows, boxes, steps, blur and pins.')
+            comments='Screenshots with arrows, boxes, steps, blur and pins.\n\nPart of the Sedge family of apps.')
         about.present(self.get_active_window())
 
 

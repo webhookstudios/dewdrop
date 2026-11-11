@@ -1,12 +1,14 @@
-# Snip
+# Dewdrop
+
+*Formerly Snip. Part of the Sedge family of webhookstudios apps.*
 
 Screenshots with markup for Ubuntu. Press Print, drag out an area or click a window, then add arrows, boxes, numbered steps and blur before you copy, save or pin the result on screen.
 
-![The Snip editor with arrows, numbered steps, a highlight and a pixelated area](docs/screenshots/editor.png)
+![The Dewdrop editor with arrows, numbered steps, a highlight and a pixelated area](docs/screenshots/editor.png)
 
 ## What it does
 
-- **Captures an area, a window, one screen or all screens**, from the Print key or from Snip's own window. Area capture freezes the screen, so open menus and tooltips stay put. Hovering highlights the window under the pointer; click it to take just that window, or drag for any area.
+- **Captures an area, a window, one screen or all screens**, from the Print key or from Dewdrop's own window. Area capture freezes the screen, so open menus and tooltips stay put. Hovering highlights the window under the pointer; click it to take just that window, or drag for any area.
 - **Window capture takes the whole window** even when other windows cover part of it, without the drop shadow.
 - **An editor with 11 tools:** select and move, arrow, line, rectangle, ellipse, pen, highlighter, text, numbered steps that count up by themselves (1, 2, 3…), blur or pixelate, and crop.
 - **Color and width for every tool**, with quick swatches and a full color picker. Each tool remembers its own color and size. Select a shape to recolor, resize, move or delete it.
@@ -27,7 +29,7 @@ Screenshots with markup for Ubuntu. Press Print, drag out an area or click a win
 | `Shift+Print` | The screen under the pointer |
 | `Ctrl+Print` | All screens in one picture |
 
-These are GNOME's own screenshot keys. While Snip's shell extension is on, it takes them over and gives them back when it is turned off. Change them, or keep GNOME's screenshot tool on those keys, in Snip's **Preferences**.
+These are GNOME's own screenshot keys. While Dewdrop's shell extension is on, it takes them over and gives them back when it is turned off. Change them, or keep GNOME's screenshot tool on those keys, in Dewdrop's **Preferences**.
 
 In the editor:
 
@@ -49,7 +51,7 @@ A pinned picture: drag to move it, scroll to zoom, `Ctrl+scroll` to fade it, dou
 
 ![Preferences](docs/screenshots/preferences.png)
 
-- **After a shortcut capture**, chosen separately for each shortcut: open the editor (default), **save straight away** with no window at all, copy to the clipboard, or pin on screen. For example, set **Screen** to *Save straight away* and Shift+Print saves the display under the pointer to your Desktop. This applies to the keyboard shortcuts, the top-bar menu, the dock menu and `snip --area` and the like. The buttons in Snip's own window always open the editor, so you can adjust the picture.
+- **After a shortcut capture**, chosen separately for each shortcut: open the editor (default), **save straight away** with no window at all, copy to the clipboard, or pin on screen. For example, set **Screen** to *Save straight away* and Shift+Print saves the display under the pointer to your Desktop. This applies to the keyboard shortcuts, the top-bar menu, the dock menu and `snip --area` and the like. The buttons in Dewdrop's own window always open the editor, so you can adjust the picture.
 - **Save straight away to**: where those quick saves go (default `~/Desktop`).
 - **Folder** for saved screenshots (default `~/Pictures/Screenshots`) and the **file name** pattern: `{YYYY}` `{MM}` `{DD}` `{hh}` `{mm}` `{ss}` for the date and time, `{n}` for a number that counts up.
 - **Format** PNG or JPG, and JPG quality.
@@ -68,7 +70,7 @@ snip --last          open the last capture again
 snip --pin picture.png
 ```
 
-Right-click Snip in the dock or apps grid for **Capture Area**, **Window**, **Screen** and **All Screens**.
+Right-click Dewdrop in the dock or apps grid for **Capture Area**, **Window**, **Screen** and **All Screens**.
 
 ## Requirements
 
@@ -78,13 +80,13 @@ Ubuntu 26.04 with GNOME Shell 50 on Wayland. Tested on Ubuntu 26.04 with GNOME S
 
 ### With the deb package (recommended)
 
-Download `snip_1.0.0_all.deb` from the [latest release](https://github.com/webhookstudios/snip/releases/latest), then install it:
+Download `snip_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/snip/releases/latest), then install it:
 
 ```bash
-sudo apt install ./snip_1.0.0_all.deb
+sudo apt install ./snip_1.1.0_all.deb
 ```
 
-Log out and back in, open **Snip** from the apps menu, and click **Turn On** in its banner to switch on the Print key shortcuts.
+Log out and back in, open **Dewdrop** from the apps menu, and click **Turn On** in its banner to switch on the Print key shortcuts.
 
 To remove it:
 
@@ -106,14 +108,14 @@ To build the packages yourself, run `./build-deb.sh` (writes `dist/snip_<version
 
 ## How it works
 
-Wayland does not let ordinary apps read the screen or find out where windows are, so Snip comes in two parts:
+Wayland does not let ordinary apps read the screen or find out where windows are, so Dewdrop comes in two parts:
 
-- **A small GNOME Shell extension** does the capturing. GNOME Shell draws the screen, so it can freeze it, list the windows, read one window's picture even where it is covered, and register the Print keys. It shows the area and window picker, saves the picture in `~/.cache/snip/captures`, and opens it in Snip. The app reaches the same capture over D-Bus (`io.github.webhookstudios.Snip.Shell`).
-- **The Snip app** (Python, GTK 4 and libadwaita) is the editor, the start window and the preferences.
+- **A small GNOME Shell extension** does the capturing. GNOME Shell draws the screen, so it can freeze it, list the windows, read one window's picture even where it is covered, and register the Print keys. It shows the area and window picker, saves the picture in `~/.cache/snip/captures`, and opens it in Dewdrop. The app reaches the same capture over D-Bus (`io.github.webhookstudios.Snip.Shell`).
+- **The Dewdrop app** (Python, GTK 4 and libadwaita) is the editor, the start window and the preferences.
 
-**Without the extension** (before the first logout, or if it is turned off), Snip's buttons still work through the desktop's screenshot portal: screen and all-screens captures are silent, area capture uses Snip's own full-screen picker, and window capture opens GNOME's screenshot window, where you pick the window. There are no Print key shortcuts in this mode.
+**Without the extension** (before the first logout, or if it is turned off), Dewdrop's buttons still work through the desktop's screenshot portal: screen and all-screens captures are silent, area capture uses Dewdrop's own full-screen picker, and window capture opens GNOME's screenshot window, where you pick the window. There are no Print key shortcuts in this mode.
 
-**Pins** are like [Scrawl](https://github.com/webhookstudios/scrawl)'s notes: Wayland does not let an app keep its window above others or choose where it goes, so pins run through XWayland with GTK 3, which can do both.
+**Pins** are like [Leaf](https://github.com/webhookstudios/scrawl)'s notes: Wayland does not let an app keep its window above others or choose where it goes, so pins run through XWayland with GTK 3, which can do both.
 
 **Copying** goes to GNOME Shell's clipboard when the extension is on, so the picture stays there after the editor closes. Without the extension, a small background helper keeps the copy available until you copy something else.
 

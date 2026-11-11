@@ -257,7 +257,7 @@ class AreaPicker:
 
 class _PickerWindow(Gtk.Window):
     def __init__(self, picker, monitor, logical, px):
-        super().__init__(application=picker.app, decorated=False, title='Snip area picker')
+        super().__init__(application=picker.app, decorated=False, title='Dewdrop area picker')
         self.picker = picker
         self.monitor = monitor
         self.logical = logical

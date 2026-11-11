@@ -45,7 +45,7 @@ def accel_label(accel):
 
 class LauncherWindow(Adw.ApplicationWindow):
     def __init__(self, app):
-        super().__init__(application=app, title='Snip', default_width=520,
+        super().__init__(application=app, title='Dewdrop', default_width=520,
                          resizable=False)
         self.app = app
         self.settings = extension_settings()
@@ -53,11 +53,11 @@ class LauncherWindow(Adw.ApplicationWindow):
         view = Adw.ToolbarView()
         header = Adw.HeaderBar()
         menu = Gio.Menu()
-        menu.append('Open Image…', 'win.open')
-        menu.append('Open Last Capture', 'win.last')
+        menu.append('Open image…', 'win.open')
+        menu.append('Open last capture', 'win.last')
         section = Gio.Menu()
-        section.append('Preferences', 'app.preferences')
-        section.append('About Snip', 'app.about')
+        section.append('Settings', 'app.preferences')
+        section.append('About Dewdrop', 'app.about')
         menu.append_section(None, section)
         header.pack_end(Gtk.MenuButton(icon_name='open-menu-symbolic', menu_model=menu,
                                        primary=True, tooltip_text='Menu'))
@@ -115,10 +115,10 @@ class LauncherWindow(Adw.ApplicationWindow):
         state = capture.extension_state()
         self.state = state
         text = {
-            'missing': 'Install the Snip shell extension for the Print key and silent captures',
+            'missing': 'Install the Dewdrop shell extension for the Print key and silent captures',
             'needs-logout': 'Log out and back in to turn on the Print key shortcuts',
-            'off': 'The Snip shell extension is off, so the Print key does not open Snip',
-            'error': 'The Snip shell extension failed to start',
+            'off': 'The Dewdrop shell extension is off, so the Print key does not open Dewdrop',
+            'error': 'The Dewdrop shell extension failed to start',
         }.get(state)
         self.banner.set_title(text or '')
         self.banner.set_button_label('Turn On' if state == 'off' else None)
@@ -176,7 +176,7 @@ class LauncherWindow(Adw.ApplicationWindow):
 
 class PreferencesDialog(Adw.PreferencesDialog):
     def __init__(self, app):
-        super().__init__(title='Preferences')
+        super().__init__(title='Settings')
         self.app = app
         cfg = app.cfg
         page = Adw.PreferencesPage(title='General', icon_name='emblem-system-symbolic')
@@ -185,7 +185,7 @@ class PreferencesDialog(Adw.PreferencesDialog):
         after = Adw.PreferencesGroup(
             title='After a shortcut capture',
             description='What each keyboard shortcut (and the top-bar menu) does with the '
-                        'picture. Capturing from Snip\'s own window always opens the editor.')
+                        'picture. Capturing from Dewdrop\'s own window always opens the editor.')
         actions = [('editor', 'Open the editor'), ('save', 'Save straight away'),
                    ('copy', 'Copy to the clipboard'), ('pin', 'Pin on screen')]
         for mode, label, _i, _key, _h in CAPTURES:
@@ -250,8 +250,8 @@ class PreferencesDialog(Adw.PreferencesDialog):
         keys = Adw.PreferencesGroup(title='Shortcuts')
         settings = extension_settings()
         if settings is None:
-            keys.set_description('Shortcuts need the Snip shell extension. '
-                                 'Install Snip with its install script or deb package, '
+            keys.set_description('Shortcuts need the Dewdrop shell extension. '
+                                 'Install Dewdrop with its install script or deb package, '
                                  'then log out and back in.')
         else:
             keys.set_description('Type a shortcut such as Print, &lt;Alt&gt;Print or '
@@ -261,10 +261,10 @@ class PreferencesDialog(Adw.PreferencesDialog):
                 keys.add(self.shortcut_row(settings, key, label))
             take = Adw.SwitchRow(title="Use GNOME's screenshot keys",
                                  subtitle="Frees Print, Shift+Print and Alt+Print from GNOME's "
-                                          "own screenshot tool while Snip is on")
+                                          "own screenshot tool while Dewdrop is on")
             settings.bind('take-over-shell-keys', take, 'active', Gio.SettingsBindFlags.DEFAULT)
             keys.add(take)
-            ind = Adw.SwitchRow(title='Show Snip in the top bar')
+            ind = Adw.SwitchRow(title='Show Dewdrop in the top bar')
             settings.bind('show-indicator', ind, 'active', Gio.SettingsBindFlags.DEFAULT)
             keys.add(ind)
         page.add(keys)

@@ -169,7 +169,7 @@ export default class SnipExtension extends Extension {
         if (this._indicator)
             return;
 
-        const indicator = new PanelMenu.Button(0.5, 'Snip');
+        const indicator = new PanelMenu.Button(0.5, 'Dewdrop');
         indicator.add_child(new St.Icon({
             gicon: Gio.icon_new_for_string(`${this.path}/icons/snip-symbolic.svg`),
             style_class: 'system-status-icon',
@@ -196,10 +196,10 @@ export default class SnipExtension extends Extension {
         add('Capture Screen', 'shortcut-screen', 'screen');
         add('Capture All Screens', 'shortcut-all-screens', 'all');
         menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        const open = new PopupMenu.PopupMenuItem('Open Snip');
+        const open = new PopupMenu.PopupMenuItem('Open Dewdrop');
         open.connect('activate', () => this._launch([]));
         menu.addMenuItem(open);
-        const last = new PopupMenu.PopupMenuItem('Open Last Capture');
+        const last = new PopupMenu.PopupMenuItem('Open last capture');
         last.connect('activate', () => this._launch(['--last']));
         menu.addMenuItem(last);
 
@@ -239,7 +239,7 @@ export default class SnipExtension extends Extension {
             return await this._doCapture(mode);
         } catch (e) {
             logError(e, 'Snip: capture failed');
-            Main.notifyError('Snip', `The screenshot failed: ${e.message}`);
+            Main.notifyError('Dewdrop', `The screenshot failed: ${e.message}`);
             return null;
         } finally {
             this._busy = false;
@@ -339,7 +339,7 @@ export default class SnipExtension extends Extension {
             launcher.spawnv([...this._appArgv(), ...args]);
         } catch (e) {
             logError(e, 'Snip: could not start the app');
-            Main.notifyError('Snip', 'Could not open the Snip app. Is it installed?');
+            Main.notifyError('Dewdrop', 'Could not open the Dewdrop app. Is it installed?');
         }
     }
 

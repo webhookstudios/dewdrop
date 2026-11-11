@@ -30,7 +30,7 @@ BORDER = 1
 
 class Pin(Gtk.Window):
     def __init__(self, path, at, launcher):
-        super().__init__(title='Snip Pin')
+        super().__init__(title='Dewdrop Pin')
         self.path = path
         self.launcher = launcher
         self.pixbuf = GdkPixbuf.Pixbuf.new_from_file(path)
@@ -193,7 +193,7 @@ class Pin(Gtk.Window):
 
         item('Copy', self.copy)
         item('Save As…', self.save_as)
-        item('Edit in Snip', self.edit)
+        item('Edit in Dewdrop', self.edit)
         menu.append(Gtk.SeparatorMenuItem())
         item('Zoom In', lambda: self.step_zoom(1))
         item('Zoom Out', lambda: self.step_zoom(-1))

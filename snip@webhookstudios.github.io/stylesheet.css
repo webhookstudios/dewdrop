@@ -3,12 +3,12 @@
 }
 
 .snip-frame {
-    border: 2px solid #3584e4;
+    border: 2px solid #4fb3a5;
 }
 
 .snip-size,
 .snip-hint {
-    background-color: rgba(30, 30, 30, 0.85);
+    background-color: rgba(24, 32, 28, 0.88);
     color: #ffffff;
     border-radius: 6px;
     padding: 3px 8px;

@@ -107,7 +107,7 @@ def write_image(surface, path, quality=90):
 
 class EditorWindow(Adw.ApplicationWindow):
     def __init__(self, app, path, origin=None):
-        super().__init__(application=app, title='Snip')
+        super().__init__(application=app, title='Dewdrop')
         self.app = app
         self.cfg = app.cfg
         self.source_path = path
@@ -158,7 +158,7 @@ class EditorWindow(Adw.ApplicationWindow):
 
     def _build_header(self):
         header = Adw.HeaderBar()
-        self.title_widget = Adw.WindowTitle(title='Snip')
+        self.title_widget = Adw.WindowTitle(title='Dewdrop')
         header.set_title_widget(self.title_widget)
 
         self.undo_btn = Gtk.Button(icon_name='edit-undo-symbolic', tooltip_text='Undo (Ctrl+Z)')
@@ -170,8 +170,8 @@ class EditorWindow(Adw.ApplicationWindow):
         header.pack_start(self.redo_btn)
 
         menu = Gio.Menu()
-        menu.append('Save As…', 'win.save-as')
-        menu.append('Open Save Folder', 'win.open-folder')
+        menu.append('Save as…', 'win.save-as')
+        menu.append('Open save folder', 'win.open-folder')
         for name, cb in (('save-as', self.save_as), ('open-folder', self.open_folder)):
             act = Gio.SimpleAction.new(name, None)
             act.connect('activate', lambda *_a, cb=cb: cb())

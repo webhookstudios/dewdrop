@@ -27,6 +27,8 @@ install -d "$SHARE/snip" "$ICONS" "$EXT/icons" "$STAGE/DEBIAN" "$STAGE/usr/bin" 
     "$STAGE/usr/share/doc/snip"
 
 install -m 644 "$ROOT"/snip/*.py "$SHARE/snip/"
+cp -r "$ROOT/snip/sedge" "$SHARE/snip/"
+find "$SHARE/snip/sedge" -type f -exec chmod 644 {} +
 install -m 644 "$ROOT"/snip/icons/hicolor/scalable/actions/*.svg "$ICONS/"
 install -m 755 "$ROOT/bin/snip" "$STAGE/usr/bin/snip"
 
@@ -44,7 +46,7 @@ chmod 644 "$STAGE/usr/share/applications/$APP_ID.desktop"
 
 cat > "$STAGE/usr/share/doc/snip/copyright" <<EOT
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Snip
+Upstream-Name: Dewdrop (formerly Snip)
 Source: https://github.com/webhookstudios/snip
 
 Files: *
@@ -52,6 +54,11 @@ Copyright: $(date +%Y) webhookstudios
 License: GPL-2+
  On Debian systems, the full text of the GNU General Public License
  version 2 can be found in /usr/share/common-licenses/GPL-2.
+
+Files: */sedge/fonts/*
+Copyright: 2023 The Young Serif Project Authors; 2015 The Public Sans Project Authors
+License: OFL-1.1
+ The full license texts are in the sedge/fonts/ folder.
 EOT
 chmod 644 "$STAGE/usr/share/doc/snip/copyright"
 
@@ -66,13 +73,13 @@ Section: graphics
 Priority: optional
 Homepage: https://github.com/webhookstudios/snip
 Description: Screenshots with markup, for GNOME
- Snip takes a screenshot of an area, a window, one screen or all screens,
+ Dewdrop (formerly Snip) takes a screenshot of an area, a window, one screen or all screens,
  from the Print key or its own window, and opens it in an editor with
  arrows, lines, boxes, ellipses, a pen, a highlighter, text, numbered
  steps, blur and pixelate, and crop. Copy the result, save it as PNG or
  JPG, or pin it on screen as an always-on-top picture.
  .
- After installing, log out and back in, then open Snip from the apps menu
+ After installing, log out and back in, then open Dewdrop from the apps menu
  and turn on its shell extension for the Print key shortcuts.
 EOT
 

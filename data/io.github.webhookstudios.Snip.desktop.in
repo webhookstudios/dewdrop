@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Snip
+Name=Dewdrop
 GenericName=Screenshot Tool
 Comment=Take screenshots and mark them up with arrows, boxes, steps and blur
 Exec=@EXEC@ %F
@@ -8,7 +8,7 @@ Icon=@ICON@
 Terminal=false
 StartupNotify=true
 Categories=Graphics;Utility;GTK;
-Keywords=screenshot;capture;snip;annotate;arrow;blur;pin;greenshot;
+Keywords=snip;sedge;screenshot;capture;snip;annotate;arrow;blur;pin;greenshot;
 MimeType=image/png;image/jpeg;
 StartupWMClass=io.github.webhookstudios.Snip
 Actions=area;window;screen;all;
