@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Dewdrop setup
+Comment=Turns Dewdrop on in place of Snip, its old name
+Exec=/usr/lib/dewdrop/dewdrop-take-over
+OnlyShowIn=GNOME;
+NoDisplay=true
+X-GNOME-Autostart-Phase=Applications

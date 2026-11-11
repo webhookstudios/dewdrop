@@ -1,16 +1,16 @@
 #!/bin/sh
-# Installs Snip for the current user, without root: the app, its apps-menu
+# Installs Dewdrop for the current user, without root: the app, its apps-menu
 # entry, and the GNOME Shell extension that adds the Print key shortcuts.
 # Run ./install.sh --uninstall to remove it.
 set -e
 
-APP_ID=io.github.webhookstudios.Snip
-UUID=snip@webhookstudios.github.io
+APP_ID=io.github.webhookstudios.Dewdrop
+UUID=dewdrop@webhookstudios.github.io
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
-DEST="$DATA/snip"
-BIN="$HOME/.local/bin/snip"
+DEST="$DATA/dewdrop"
+BIN="$HOME/.local/bin/dewdrop"
 EXT="$DATA/gnome-shell/extensions/$UUID"
 
 if [ "$1" = "--uninstall" ]; then
@@ -19,13 +19,13 @@ if [ "$1" = "--uninstall" ]; then
         "$DATA/applications/$APP_ID.desktop" \
         "$DATA/icons/hicolor/scalable/apps/$APP_ID.svg"
     update-desktop-database "$DATA/applications" 2>/dev/null || true
-    echo "Snip is removed. Your settings in $CONFIG/snip and your saved screenshots were kept."
+    echo "Dewdrop is removed. Your settings in $CONFIG/dewdrop and your saved screenshots were kept."
     exit 0
 fi
 
 if ! python3 -c "import gi, cairo; gi.require_version('Gtk','4.0'); gi.require_version('Adw','1'); from gi.repository import Gtk, Adw" 2>/dev/null; then
     cat >&2 <<MSG
-Snip needs Python 3 with GTK 4, libadwaita and cairo bindings, which weren't found.
+Dewdrop needs Python 3 with GTK 4, libadwaita and cairo bindings, which weren't found.
 Install them, then run this script again:
 
   sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-4.0 gir1.2-adw-1 gir1.2-gtk-3.0
@@ -37,12 +37,12 @@ mkdir -p "$DEST" "$DATA/applications" "$DATA/icons/hicolor/scalable/apps" \
     "$(dirname "$BIN")" "$DATA/gnome-shell/extensions"
 
 # The app.
-rm -rf "$DEST/snip"
-cp -r "$ROOT/snip" "$DEST/snip"
-find "$DEST/snip" -name __pycache__ -prune -exec rm -rf {} +
-cp "$ROOT/bin/snip" "$DEST/snip-launcher"
-printf '#!/bin/sh\nexec python3 "%s" "$@"\n' "$DEST/snip-launcher" > "$BIN"
-chmod 755 "$BIN" "$DEST/snip-launcher"
+rm -rf "$DEST/dewdrop"
+cp -r "$ROOT/dewdrop" "$DEST/dewdrop"
+find "$DEST/dewdrop" -name __pycache__ -prune -exec rm -rf {} +
+cp "$ROOT/bin/dewdrop" "$DEST/dewdrop-launcher"
+printf '#!/bin/sh\nexec python3 "%s" "$@"\n' "$DEST/dewdrop-launcher" > "$BIN"
+chmod 755 "$BIN" "$DEST/dewdrop-launcher"
 
 cp "$ROOT/data/$APP_ID.svg" "$DATA/icons/hicolor/scalable/apps/"
 # The icon is given by its full path: the shell does not notice a new icon
@@ -72,11 +72,11 @@ if ! gnome-extensions enable "$UUID" 2>/dev/null; then
     esac
 fi
 
-echo "Snip is installed. Open it from the apps menu, or run: snip"
+echo "Dewdrop is installed. Open it from the apps menu, or run: dewdrop"
 echo
-echo "The Print key shortcuts come from the Snip shell extension, which GNOME"
+echo "The Print key shortcuts come from the Dewdrop shell extension, which GNOME"
 echo "only loads at login: log out and back in once to turn them on. Until then"
-echo "Snip's own buttons still work, through the desktop's screenshot portal."
+echo "Dewdrop's own buttons still work, through the desktop's screenshot portal."
 case ":$PATH:" in
     *":$HOME/.local/bin:"*) ;;
     *) echo "Note: $HOME/.local/bin is not on your PATH yet; log out and back in, or use $BIN." ;;

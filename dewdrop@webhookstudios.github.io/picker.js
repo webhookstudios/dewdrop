@@ -52,24 +52,24 @@ export class Picker {
             reactive: true,
             can_focus: true,
             x: 0, y: 0, width, height,
-            style_class: 'snip-overlay',
+            style_class: 'dewdrop-overlay',
         });
         this._overlay.add_child(new Clutter.Actor({
             content: frozen, x: 0, y: 0, width, height,
         }));
         this._shades = [0, 1, 2, 3].map(() => {
-            const s = new St.Widget({style_class: 'snip-shade'});
+            const s = new St.Widget({style_class: 'dewdrop-shade'});
             this._overlay.add_child(s);
             return s;
         });
-        this._frame = new St.Widget({style_class: 'snip-frame', visible: false});
+        this._frame = new St.Widget({style_class: 'dewdrop-frame', visible: false});
         this._overlay.add_child(this._frame);
-        this._size = new St.Label({style_class: 'snip-size', visible: false});
+        this._size = new St.Label({style_class: 'dewdrop-size', visible: false});
         this._overlay.add_child(this._size);
 
         const mon = Main.layoutManager.currentMonitor ?? Main.layoutManager.primaryMonitor;
         this._hint = new St.Label({
-            style_class: 'snip-hint',
+            style_class: 'dewdrop-hint',
             text: mode === 'window'
                 ? 'Click a window to capture it  ·  Esc to cancel'
                 : 'Drag to select an area  ·  Click a window or screen  ·  Esc to cancel',

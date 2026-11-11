@@ -1,13 +1,13 @@
-// Snip: screenshot shortcuts and capture service for the Snip app.
+// Dewdrop: screenshot shortcuts and capture service for the Dewdrop app.
 //
 // Plain apps on Wayland cannot read the screen or list windows without
 // going through the screenshot portal. GNOME Shell can, so this extension
-// does the capturing and hands the picture to the Snip editor:
+// does the capturing and hands the picture to the Dewdrop editor:
 //
 //   * global shortcuts (Print, Alt+Print, Shift+Print, Ctrl+Print)
 //   * a top-bar menu with the same captures
 //   * a D-Bus service the app calls from its own buttons
-//     (io.github.webhookstudios.Snip.Shell on the session bus)
+//     (io.github.webhookstudios.Dewdrop.Shell on the session bus)
 
 import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
@@ -27,9 +27,9 @@ import {Picker} from './picker.js';
 Gio._promisify(Shell.Screenshot.prototype, 'screenshot_stage_to_content');
 Gio._promisify(Shell.Screenshot, 'composite_to_stream');
 
-const APP_DESKTOP = 'io.github.webhookstudios.Snip.desktop';
-const BUS_NAME = 'io.github.webhookstudios.Snip.Shell';
-const OBJECT_PATH = '/io/github/webhookstudios/Snip';
+const APP_DESKTOP = 'io.github.webhookstudios.Dewdrop.desktop';
+const BUS_NAME = 'io.github.webhookstudios.Dewdrop.Shell';
+const OBJECT_PATH = '/io/github/webhookstudios/Dewdrop';
 const IFACE = `
 <node>
   <interface name="${BUS_NAME}">
@@ -59,7 +59,7 @@ function normalizeAccel(accel) {
     return accel.replace(/<Primary>|<Ctrl>/g, '<Control>').toLowerCase();
 }
 
-export default class SnipExtension extends Extension {
+export default class DewdropExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
         this._busy = false;
@@ -171,7 +171,7 @@ export default class SnipExtension extends Extension {
 
         const indicator = new PanelMenu.Button(0.5, 'Dewdrop');
         indicator.add_child(new St.Icon({
-            gicon: Gio.icon_new_for_string(`${this.path}/icons/snip-symbolic.svg`),
+            gicon: Gio.icon_new_for_string(`${this.path}/icons/dewdrop-symbolic.svg`),
             style_class: 'system-status-icon',
         }));
         const menu = indicator.menu;
@@ -238,7 +238,7 @@ export default class SnipExtension extends Extension {
         try {
             return await this._doCapture(mode);
         } catch (e) {
-            logError(e, 'Snip: capture failed');
+            logError(e, 'Dewdrop: capture failed');
             Main.notifyError('Dewdrop', `The screenshot failed: ${e.message}`);
             return null;
         } finally {
@@ -305,7 +305,7 @@ export default class SnipExtension extends Extension {
         global.display.get_sound_player().play_from_theme(
             'screen-capture', 'Screenshot taken', null);
 
-        const dir = GLib.build_filenamev([GLib.get_user_cache_dir(), 'snip', 'captures']);
+        const dir = GLib.build_filenamev([GLib.get_user_cache_dir(), 'dewdrop', 'captures']);
         GLib.mkdir_with_parents(dir, 0o700);
         const stamp = GLib.DateTime.new_now_local().format('%Y%m%d-%H%M%S');
         const name = `capture-${stamp}-${GLib.random_int_range(1000, 9999)}.png`;
@@ -326,11 +326,11 @@ export default class SnipExtension extends Extension {
                 if (cmd.length)
                     return cmd;
             } catch (e) {
-                logError(e, 'Snip: could not read the app launcher');
+                logError(e, 'Dewdrop: could not read the app launcher');
             }
         }
-        const found = GLib.find_program_in_path('snip');
-        return [found ?? GLib.build_filenamev([GLib.get_home_dir(), '.local', 'bin', 'snip'])];
+        const found = GLib.find_program_in_path('dewdrop');
+        return [found ?? GLib.build_filenamev([GLib.get_home_dir(), '.local', 'bin', 'dewdrop'])];
     }
 
     _launch(args) {
@@ -338,7 +338,7 @@ export default class SnipExtension extends Extension {
             const launcher = new Gio.SubprocessLauncher({flags: Gio.SubprocessFlags.NONE});
             launcher.spawnv([...this._appArgv(), ...args]);
         } catch (e) {
-            logError(e, 'Snip: could not start the app');
+            logError(e, 'Dewdrop: could not start the app');
             Main.notifyError('Dewdrop', 'Could not open the Dewdrop app. Is it installed?');
         }
     }

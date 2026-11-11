@@ -10,14 +10,14 @@ from gi.repository import Adw, Gdk, Gio, GLib, Gtk  # noqa: E402
 from . import capture  # noqa: E402
 from .config import PATTERN_HELP, expand_pattern  # noqa: E402
 
-SCHEMA_ID = 'org.gnome.shell.extensions.snip'
+SCHEMA_ID = 'org.gnome.shell.extensions.dewdrop'
 CAPTURES = [
-    ('area', 'Area', 'snip-region-symbolic', 'shortcut-region',
+    ('area', 'Area', 'dewdrop-region-symbolic', 'shortcut-region',
      'Drag out an area, or click a window'),
-    ('window', 'Window', 'snip-window-symbolic', 'shortcut-window', 'Click the window to take'),
-    ('screen', 'Screen', 'snip-screen-symbolic', 'shortcut-screen',
+    ('window', 'Window', 'dewdrop-window-symbolic', 'shortcut-window', 'Click the window to take'),
+    ('screen', 'Screen', 'dewdrop-screen-symbolic', 'shortcut-screen',
      'The screen the pointer is on'),
-    ('all', 'All Screens', 'snip-screens-symbolic', 'shortcut-all-screens',
+    ('all', 'All Screens', 'dewdrop-screens-symbolic', 'shortcut-all-screens',
      'Every monitor in one picture'),
 ]
 

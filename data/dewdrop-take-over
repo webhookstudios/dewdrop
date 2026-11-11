@@ -1,0 +1,16 @@
+#!/bin/sh
+# Dewdrop was called Snip. If the Snip extension was turned on (or off) for you,
+# Dewdrop takes its place. Runs at login and does nothing once that is done.
+OLD=snip@webhookstudios.github.io
+NEW=dewdrop@webhookstudios.github.io
+for key in enabled-extensions disabled-extensions; do
+    list=$(gsettings get org.gnome.shell "$key" 2>/dev/null) || continue
+    case "$list" in
+        *"'$OLD'"*)
+            case "$list" in
+                *"'$NEW'"*) list=$(printf '%s' "$list" | sed "s/, *'$OLD'//; s/'$OLD', *//; s/'$OLD'//") ;;
+                *) list=$(printf '%s' "$list" | sed "s/'$OLD'/'$NEW'/") ;;
+            esac
+            gsettings set org.gnome.shell "$key" "$list" ;;
+    esac
+done

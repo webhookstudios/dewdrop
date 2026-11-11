@@ -8,9 +8,9 @@ Icon=@ICON@
 Terminal=false
 StartupNotify=true
 Categories=Graphics;Utility;GTK;
-Keywords=snip;sedge;screenshot;capture;snip;annotate;arrow;blur;pin;greenshot;
+Keywords=snip;sedge;screenshot;capture;dewdrop;annotate;arrow;blur;pin;greenshot;
 MimeType=image/png;image/jpeg;
-StartupWMClass=io.github.webhookstudios.Snip
+StartupWMClass=io.github.webhookstudios.Dewdrop
 Actions=area;window;screen;all;
 
 [Desktop Action area]

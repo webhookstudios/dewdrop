@@ -43,8 +43,8 @@ class Pin(Gtk.Window):
         self.set_skip_taskbar_hint(True)
         self.set_skip_pager_hint(True)
         self.set_type_hint(Gdk.WindowTypeHint.UTILITY)
-        self.set_icon_name('io.github.webhookstudios.Snip')
-        self.set_wmclass('snip-pin', 'Snip Pin')
+        self.set_icon_name('io.github.webhookstudios.Dewdrop')
+        self.set_wmclass('dewdrop-pin', 'Dewdrop Pin')
         self.set_app_paintable(True)
 
         screen = self.get_screen()
@@ -216,7 +216,7 @@ class Pin(Gtk.Window):
 
     def copy(self):
         # The app copies so the picture outlives this window (and it uses the
-        # shell's clipboard when the Snip extension is on).
+        # shell's clipboard when the Dewdrop extension is on).
         subprocess.Popen([*self.launcher, '--copy', self.path], start_new_session=True)
 
     def edit(self):
@@ -260,7 +260,7 @@ def main(argv, launcher):
         elif not a.startswith('--'):
             path = a
     if not path or not os.path.exists(path):
-        print('snip --pin: no picture to pin', file=sys.stderr)
+        print('dewdrop --pin: no picture to pin', file=sys.stderr)
         return 1
     Pin(path, at, launcher)
     Gtk.main()
@@ -270,7 +270,7 @@ def main(argv, launcher):
 def hold_clipboard(argv):
     """Owns the clipboard through XWayland until something else is copied.
 
-    Without the shell extension this is how Snip copies: an X11 client may
+    Without the shell extension this is how Dewdrop copies: an X11 client may
     take the clipboard without having focus (Wayland clients may not), GNOME
     passes it on to Wayland apps, and this little process keeps the picture
     available after the editor closes.

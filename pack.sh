@@ -2,7 +2,7 @@
 # Builds the extension's release zip in dist/, ready for `gnome-extensions install`.
 set -e
 
-UUID=snip@webhookstudios.github.io
+UUID=dewdrop@webhookstudios.github.io
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 mkdir -p "$ROOT/dist"

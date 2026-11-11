@@ -13,9 +13,9 @@ from .config import Config, clean_cache, next_save_path  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-USAGE = '''Usage: snip [OPTION] [FILE...]
+USAGE = '''Usage: dewdrop [OPTION] [FILE...]
 
-  (no option)        open Snip
+  (no option)        open Dewdrop
   --area             capture an area or a window you click
   --window           capture a window
   --screen           capture one screen
@@ -28,7 +28,7 @@ USAGE = '''Usage: snip [OPTION] [FILE...]
 '''
 
 
-class SnipApplication(Adw.Application):
+class DewdropApplication(Adw.Application):
     def __init__(self, launcher):
         super().__init__(application_id=APP_ID,
                          flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
@@ -105,7 +105,7 @@ class SnipApplication(Adw.Application):
                 if a.startswith('--gapplication'):
                     pass
                 else:
-                    cmdline.printerr_literal(f'snip: unknown option {a}\n\n{USAGE}')
+                    cmdline.printerr_literal(f'dewdrop: unknown option {a}\n\n{USAGE}')
                     return 2
             else:
                 edit.append(a if os.path.isabs(a) else os.path.join(cwd, a))
@@ -115,9 +115,9 @@ class SnipApplication(Adw.Application):
             self.copy_file(os.path.join(cwd, copy))
         for n, path in enumerate(edit):
             if not os.path.exists(path):
-                cmdline.printerr_literal(f'snip: no such file: {path}\n')
+                cmdline.printerr_literal(f'dewdrop: no such file: {path}\n')
                 continue
-            if path.startswith(os.path.join(GLib.get_user_cache_dir(), 'snip', 'captures')) \
+            if path.startswith(os.path.join(GLib.get_user_cache_dir(), 'dewdrop', 'captures')) \
                     and os.path.basename(path).startswith('capture-'):
                 # A fresh capture from a shortcut or the top-bar menu.
                 self.handle_capture(path, origin if n == 0 else None,
@@ -159,7 +159,7 @@ class SnipApplication(Adw.Application):
         for w in self.get_windows():
             if isinstance(w, LauncherWindow) and not w.get_visible():
                 w.destroy()
-        # Snip's own buttons always open the editor; shortcuts follow the
+        # Dewdrop's own buttons always open the editor; shortcuts follow the
         # choice made for them in Preferences.
         action = (self.cfg['shortcut_actions'] or {}).get(shortcut, 'editor') \
             if shortcut else 'editor'
@@ -210,7 +210,7 @@ class SnipApplication(Adw.Application):
             return
         # Without the extension, a small XWayland helper owns the clipboard
         # (see pin.hold_clipboard). Only one is needed at a time.
-        subprocess.run(['pkill', '-f', 'snip.*--hold-clipboar[d]'], check=False)
+        subprocess.run(['pkill', '-f', 'dewdrop.*--hold-clipboar[d]'], check=False)
         subprocess.Popen([*self.launcher, '--hold-clipboard', path],
                          env=_no_gdk_backend(), start_new_session=True)
 
@@ -230,8 +230,8 @@ class SnipApplication(Adw.Application):
         about = Adw.AboutDialog(
             application_name='Dewdrop', application_icon=APP_ID, version=__version__,
             developer_name='webhookstudios',
-            website='https://github.com/webhookstudios/snip',
-            issue_url='https://github.com/webhookstudios/snip/issues',
+            website='https://github.com/webhookstudios/dewdrop',
+            issue_url='https://github.com/webhookstudios/dewdrop/issues',
             license_type=Gtk.License.GPL_2_0,
             comments='Screenshots with arrows, boxes, steps, blur and pins.\n\nPart of the Sedge family of apps.')
         about.present(self.get_active_window())

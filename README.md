@@ -51,7 +51,7 @@ A pinned picture: drag to move it, scroll to zoom, `Ctrl+scroll` to fade it, dou
 
 ![Preferences](docs/screenshots/preferences.png)
 
-- **After a shortcut capture**, chosen separately for each shortcut: open the editor (default), **save straight away** with no window at all, copy to the clipboard, or pin on screen. For example, set **Screen** to *Save straight away* and Shift+Print saves the display under the pointer to your Desktop. This applies to the keyboard shortcuts, the top-bar menu, the dock menu and `snip --area` and the like. The buttons in Dewdrop's own window always open the editor, so you can adjust the picture.
+- **After a shortcut capture**, chosen separately for each shortcut: open the editor (default), **save straight away** with no window at all, copy to the clipboard, or pin on screen. For example, set **Screen** to *Save straight away* and Shift+Print saves the display under the pointer to your Desktop. This applies to the keyboard shortcuts, the top-bar menu, the dock menu and `dewdrop --area` and the like. The buttons in Dewdrop's own window always open the editor, so you can adjust the picture.
 - **Save straight away to**: where those quick saves go (default `~/Desktop`).
 - **Folder** for saved screenshots (default `~/Pictures/Screenshots`) and the **file name** pattern: `{YYYY}` `{MM}` `{DD}` `{hh}` `{mm}` `{ss}` for the date and time, `{n}` for a number that counts up.
 - **Format** PNG or JPG, and JPG quality.
@@ -59,15 +59,15 @@ A pinned picture: drag to move it, scroll to zoom, `Ctrl+scroll` to fade it, dou
 ## Command line
 
 ```
-snip                 open Snip
-snip --area          capture an area or a window you click
-snip --window        capture a window
-snip --screen        capture one screen
-snip --all           capture all screens
-snip --delay 5 ...   wait 5 seconds first
-snip picture.png     open a picture in the editor
-snip --last          open the last capture again
-snip --pin picture.png
+dewdrop                 open Dewdrop
+dewdrop --area          capture an area or a window you click
+dewdrop --window        capture a window
+dewdrop --screen        capture one screen
+dewdrop --all           capture all screens
+dewdrop --delay 5 ...   wait 5 seconds first
+dewdrop picture.png     open a picture in the editor
+dewdrop --last          open the last capture again
+dewdrop --pin picture.png
 ```
 
 Right-click Dewdrop in the dock or apps grid for **Capture Area**, **Window**, **Screen** and **All Screens**.
@@ -80,10 +80,10 @@ Ubuntu 26.04 with GNOME Shell 50 on Wayland. Tested on Ubuntu 26.04 with GNOME S
 
 ### With the deb package (recommended)
 
-Download `snip_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/snip/releases/latest), then install it:
+Download `dewdrop_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/dewdrop/releases/latest), then install it:
 
 ```bash
-sudo apt install ./snip_1.1.0_all.deb
+sudo apt install ./dewdrop_1.1.0_all.deb
 ```
 
 Log out and back in, open **Dewdrop** from the apps menu, and click **Turn On** in its banner to switch on the Print key shortcuts.
@@ -91,35 +91,35 @@ Log out and back in, open **Dewdrop** from the apps menu, and click **Turn On** 
 To remove it:
 
 ```bash
-sudo apt remove snip
+sudo apt remove dewdrop
 ```
 
 ### From source, for the current user only
 
 ```bash
-git clone https://github.com/webhookstudios/snip.git
-cd snip
+git clone https://github.com/webhookstudios/dewdrop.git
+cd dewdrop
 ./install.sh
 ```
 
-This installs the app to `~/.local/share/snip`, adds `snip` to `~/.local/bin`, and installs and turns on the shell extension. Log out and back in once so GNOME loads the extension. Remove it all with `./install.sh --uninstall`.
+This installs the app to `~/.local/share/dewdrop`, adds `dewdrop` to `~/.local/bin`, and installs and turns on the shell extension. Log out and back in once so GNOME loads the extension. Remove it all with `./install.sh --uninstall`.
 
-To build the packages yourself, run `./build-deb.sh` (writes `dist/snip_<version>_all.deb`) and `./pack.sh` (writes the extension zip).
+To build the packages yourself, run `./build-deb.sh` (writes `dist/dewdrop_<version>_all.deb`) and `./pack.sh` (writes the extension zip).
 
 ## How it works
 
 Wayland does not let ordinary apps read the screen or find out where windows are, so Dewdrop comes in two parts:
 
-- **A small GNOME Shell extension** does the capturing. GNOME Shell draws the screen, so it can freeze it, list the windows, read one window's picture even where it is covered, and register the Print keys. It shows the area and window picker, saves the picture in `~/.cache/snip/captures`, and opens it in Dewdrop. The app reaches the same capture over D-Bus (`io.github.webhookstudios.Snip.Shell`).
+- **A small GNOME Shell extension** does the capturing. GNOME Shell draws the screen, so it can freeze it, list the windows, read one window's picture even where it is covered, and register the Print keys. It shows the area and window picker, saves the picture in `~/.cache/dewdrop/captures`, and opens it in Dewdrop. The app reaches the same capture over D-Bus (`io.github.webhookstudios.Dewdrop.Shell`).
 - **The Dewdrop app** (Python, GTK 4 and libadwaita) is the editor, the start window and the preferences.
 
 **Without the extension** (before the first logout, or if it is turned off), Dewdrop's buttons still work through the desktop's screenshot portal: screen and all-screens captures are silent, area capture uses Dewdrop's own full-screen picker, and window capture opens GNOME's screenshot window, where you pick the window. There are no Print key shortcuts in this mode.
 
-**Pins** are like [Leaf](https://github.com/webhookstudios/scrawl)'s notes: Wayland does not let an app keep its window above others or choose where it goes, so pins run through XWayland with GTK 3, which can do both.
+**Pins** are like [Leaf](https://github.com/webhookstudios/leaf)'s notes: Wayland does not let an app keep its window above others or choose where it goes, so pins run through XWayland with GTK 3, which can do both.
 
 **Copying** goes to GNOME Shell's clipboard when the extension is on, so the picture stays there after the editor closes. Without the extension, a small background helper keeps the copy available until you copy something else.
 
-Settings live in `~/.config/snip/settings.json` and the shortcuts in the extension's GSettings (`org.gnome.shell.extensions.snip`). Captures in `~/.cache/snip` are deleted after two days.
+Settings live in `~/.config/dewdrop/settings.json` and the shortcuts in the extension's GSettings (`org.gnome.shell.extensions.dewdrop`). Captures in `~/.cache/dewdrop` are deleted after two days.
 
 ## Limits
 

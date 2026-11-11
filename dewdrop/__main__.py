@@ -3,7 +3,7 @@ import sys
 
 
 def launcher():
-    """How to start Snip again (for pins and helpers)."""
+    """How to start Dewdrop again (for pins and helpers)."""
     return [sys.executable, os.path.realpath(sys.argv[0])]
 
 
@@ -17,8 +17,8 @@ def main(argv=None):
     if '--hold-clipboard' in argv[1:]:
         from .pin import hold_clipboard
         return hold_clipboard([a for a in argv[1:] if a != '--hold-clipboard'])
-    from .app import SnipApplication
-    return SnipApplication(launcher()).run(argv)
+    from .app import DewdropApplication
+    return DewdropApplication(launcher()).run(argv)
 
 
 if __name__ == '__main__':

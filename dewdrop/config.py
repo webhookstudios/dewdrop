@@ -1,4 +1,4 @@
-"""Settings, saved as JSON in ~/.config/snip/settings.json."""
+"""Settings, saved as JSON in ~/.config/dewdrop/settings.json."""
 import json
 import os
 import re
@@ -6,9 +6,11 @@ import time
 
 from gi.repository import GLib
 
-CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), 'snip')
+CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), 'dewdrop')
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'settings.json')
-CACHE_DIR = os.path.join(GLib.get_user_cache_dir(), 'snip', 'captures')
+# Dewdrop was called Snip. Its settings are copied over the first time; the old folder stays as a backup.
+OLD_CONFIG_DIR = os.path.join(GLib.get_user_config_dir(), 'snip')
+CACHE_DIR = os.path.join(GLib.get_user_cache_dir(), 'dewdrop', 'captures')
 
 
 def desktop_dir():
@@ -28,7 +30,7 @@ DEFAULTS = {
     'format': 'png',            # png or jpg
     'jpeg_quality': 90,
     # What a shortcut capture does, per kind: editor, save, copy or pin.
-    # Captures started from Snip's own window always open the editor.
+    # Captures started from Dewdrop's own window always open the editor.
     'shortcut_actions': {'area': 'editor', 'window': 'editor',
                          'screen': 'editor', 'all': 'editor'},
     'quick_save_dir': desktop_dir(),
@@ -44,6 +46,9 @@ PATTERN_HELP = ('{YYYY} year, {MM} month, {DD} day, {hh} hour, {mm} minute, '
 
 class Config:
     def __init__(self):
+        if not os.path.exists(CONFIG_DIR) and os.path.isdir(OLD_CONFIG_DIR):
+            import shutil
+            shutil.copytree(OLD_CONFIG_DIR, CONFIG_DIR)
         self.data = dict(DEFAULTS)
         try:
             with open(CONFIG_FILE) as f:

@@ -1,13 +1,13 @@
 """Taking the screenshot.
 
-With the Snip shell extension on, the shell does the capture: silent, with
-a frozen-screen area and window picker. Without it, Snip falls back to the
+With the Dewdrop shell extension on, the shell does the capture: silent, with
+a frozen-screen area and window picker. Without it, Dewdrop falls back to the
 desktop's screenshot portal (org.freedesktop.portal.Screenshot), which
 every Wayland desktop offers:
 
   all screens   portal, silent
   one screen    portal, silent, cut to that monitor
-  area          portal, silent, then Snip's own full-screen area picker
+  area          portal, silent, then Dewdrop's own full-screen area picker
   window        portal, interactive: GNOME's screenshot window where you
                 pick the window yourself
 """
@@ -25,9 +25,9 @@ import cairo  # noqa: E402
 
 from .config import new_cache_path  # noqa: E402
 
-SHELL_NAME = 'io.github.webhookstudios.Snip.Shell'
-SHELL_PATH = '/io/github/webhookstudios/Snip'
-EXT_UUID = 'snip@webhookstudios.github.io'
+SHELL_NAME = 'io.github.webhookstudios.Dewdrop.Shell'
+SHELL_PATH = '/io/github/webhookstudios/Dewdrop'
+EXT_UUID = 'dewdrop@webhookstudios.github.io'
 MODES = ('area', 'window', 'screen', 'all')
 
 
@@ -36,7 +36,7 @@ def _bus():
 
 
 def shell_available():
-    """True when the Snip extension is running in GNOME Shell."""
+    """True when the Dewdrop extension is running in GNOME Shell."""
     try:
         res = _bus().call_sync('org.freedesktop.DBus', '/org/freedesktop/DBus',
                                'org.freedesktop.DBus', 'NameHasOwner',
@@ -120,7 +120,7 @@ class Capture:
             try:
                 path, x, y = bus.call_finish(res).unpack()
             except GLib.Error as e:
-                print(f'snip: shell capture failed: {e.message}')
+                print(f'dewdrop: shell capture failed: {e.message}')
                 path, x, y = '', 0, 0
             self._finish(path or None, (x, y) if path else None)
         _bus().call(SHELL_NAME, SHELL_PATH, SHELL_NAME, 'Capture',
@@ -131,7 +131,7 @@ class Capture:
 
     def _via_portal(self, interactive):
         bus = _bus()
-        token = f'snip{GLib.random_int_range(0, 1 << 30)}'
+        token = f'dewdrop{GLib.random_int_range(0, 1 << 30)}'
         sender = bus.get_unique_name()[1:].replace('.', '_')
         handle = f'/org/freedesktop/portal/desktop/request/{sender}/{token}'
         sub = [0]
@@ -164,7 +164,7 @@ class Capture:
                 b.call_finish(res)
             except GLib.Error as e:
                 bus.signal_unsubscribe(sub[0])
-                print(f'snip: screenshot portal failed: {e.message}')
+                print(f'dewdrop: screenshot portal failed: {e.message}')
                 self._finish(None)
         bus.call('org.freedesktop.portal.Desktop', '/org/freedesktop/portal/desktop',
                  'org.freedesktop.portal.Screenshot', 'Screenshot',

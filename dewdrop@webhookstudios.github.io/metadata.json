@@ -1,0 +1,9 @@
+{
+  "uuid": "dewdrop@webhookstudios.github.io",
+  "name": "Dewdrop",
+  "description": "Screenshot shortcuts for the Dewdrop app: press Print to drag out an area or click a window, Alt+Print for a window, Shift+Print for the screen under the pointer and Ctrl+Print for every screen. Each capture opens in Dewdrop's editor.",
+  "version-name": "1.1.0",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.dewdrop",
+  "url": "https://github.com/webhookstudios/dewdrop"
+}

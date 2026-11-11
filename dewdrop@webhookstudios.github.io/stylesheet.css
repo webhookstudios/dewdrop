@@ -1,13 +1,13 @@
-.snip-shade {
+.dewdrop-shade {
     background-color: rgba(0, 0, 0, 0.45);
 }
 
-.snip-frame {
+.dewdrop-frame {
     border: 2px solid #4fb3a5;
 }
 
-.snip-size,
-.snip-hint {
+.dewdrop-size,
+.dewdrop-hint {
     background-color: rgba(24, 32, 28, 0.88);
     color: #ffffff;
     border-radius: 6px;
@@ -15,7 +15,7 @@
     font-size: 10pt;
 }
 
-.snip-hint {
+.dewdrop-hint {
     padding: 8px 16px;
     border-radius: 99px;
     font-size: 11pt;

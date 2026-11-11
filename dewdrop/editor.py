@@ -61,9 +61,9 @@ CSS = ''.join(
     f'{round(c[2] * 255)},1); min-width: 18px; min-height: 18px; padding: 0; '
     f'border-radius: 99px; border: 1px solid alpha(currentColor, 0.3); }}\n'
     for name, c in SWATCHES) + '''
-.snip-canvas-bg { background-color: alpha(currentColor, 0.06); }
-.snip-toolbar { padding: 4px 8px; }
-.snip-toolbar togglebutton { min-width: 30px; }
+.dewdrop-canvas-bg { background-color: alpha(currentColor, 0.06); }
+.dewdrop-toolbar { padding: 4px 8px; }
+.dewdrop-toolbar togglebutton { min-width: 30px; }
 '''
 
 
@@ -185,19 +185,19 @@ class EditorWindow(Adw.ApplicationWindow):
         copy = Gtk.Button(icon_name='edit-copy-symbolic', tooltip_text='Copy (Ctrl+C)')
         copy.connect('clicked', lambda *_: self.copy())
         header.pack_end(copy)
-        pin = Gtk.Button(icon_name='snip-pin-symbolic',
+        pin = Gtk.Button(icon_name='dewdrop-pin-symbolic',
                          tooltip_text='Pin on screen, always on top (Ctrl+P)')
         pin.connect('clicked', lambda *_: self.pin())
         header.pack_end(pin)
         return header
 
     def _build_toolbar(self):
-        bar = Gtk.Box(spacing=4, css_classes=['snip-toolbar'])
+        bar = Gtk.Box(spacing=4, css_classes=['dewdrop-toolbar'])
         self.tool_buttons = {}
         group = None
         tools = Gtk.Box(spacing=2, css_classes=['linked'])
         for name, label, key in TOOLS:
-            b = Gtk.ToggleButton(icon_name=f'snip-{name}-symbolic',
+            b = Gtk.ToggleButton(icon_name=f'dewdrop-{name}-symbolic',
                                  tooltip_text=f'{label} ({key})')
             if group:
                 b.set_group(group)
@@ -273,7 +273,7 @@ class EditorWindow(Adw.ApplicationWindow):
                                     margin_start=16, margin_end=16)
         self.area.set_draw_func(self.draw)
         self.scroller = Gtk.ScrolledWindow(hexpand=True, vexpand=True,
-                                           css_classes=['snip-canvas-bg'])
+                                           css_classes=['dewdrop-canvas-bg'])
         self.scroller.set_child(self.area)
         self.scroller.get_hadjustment().connect('notify::page-size', self.on_viewport_changed)
         self.scroller.get_vadjustment().connect('notify::page-size', self.on_viewport_changed)
