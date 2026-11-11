@@ -308,12 +308,12 @@ class PreferencesDialog(Adw.PreferencesDialog):
         dialog.select_folder(self.get_root(), None, done)
 
     def on_pattern(self, row):
-        text = row.get_text().strip() or 'Snip {YYYY}-{MM}-{DD} {hh}-{mm}-{ss}'
+        text = row.get_text().strip() or 'Dewdrop {YYYY}-{MM}-{DD} {hh}-{mm}-{ss}'
         self.app.cfg['pattern'] = text
 
     def on_pattern_preview(self, row):
         ext = 'jpg' if self.app.cfg['format'] == 'jpg' else 'png'
-        self.preview.set_subtitle(f'{expand_pattern(row.get_text() or "Snip")}.{ext}\n'
+        self.preview.set_subtitle(f'{expand_pattern(row.get_text() or "Dewdrop")}.{ext}\n'
                                   f'{PATTERN_HELP}')
 
 

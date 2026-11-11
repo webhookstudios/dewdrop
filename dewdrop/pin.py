@@ -231,7 +231,7 @@ class Pin(Gtk.Window):
         pictures = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
         if pictures:
             dialog.set_current_folder(pictures)
-        dialog.set_current_name(GLib.DateTime.new_now_local().format('Snip %Y-%m-%d %H-%M-%S.png'))
+        dialog.set_current_name(GLib.DateTime.new_now_local().format('Dewdrop %Y-%m-%d %H-%M-%S.png'))
         if dialog.run() == Gtk.ResponseType.ACCEPT:
             name = dialog.get_filename()
             kind = 'jpeg' if name.lower().endswith(('.jpg', '.jpeg')) else 'png'

@@ -26,7 +26,7 @@ def default_save_dir():
 
 DEFAULTS = {
     'save_dir': default_save_dir(),
-    'pattern': 'Snip {YYYY}-{MM}-{DD} {hh}-{mm}-{ss}',
+    'pattern': 'Dewdrop {YYYY}-{MM}-{DD} {hh}-{mm}-{ss}',
     'format': 'png',            # png or jpg
     'jpeg_quality': 90,
     # What a shortcut capture does, per kind: editor, save, copy or pin.
@@ -39,6 +39,9 @@ DEFAULTS = {
     'styles': {},               # tool -> {"color": [r, g, b, a], "width": n, "mode": ...}
     'last_capture': '',
 }
+
+# The default pattern before Dewdrop 1.1.1. Saved settings that still have it get the new default.
+OLD_DEFAULT_PATTERN = 'Snip {YYYY}-{MM}-{DD} {hh}-{mm}-{ss}'
 
 PATTERN_HELP = ('{YYYY} year, {MM} month, {DD} day, {hh} hour, {mm} minute, '
                 '{ss} second, {n} a number that counts up')
@@ -61,6 +64,8 @@ class Config:
                     self.data['shortcut_actions'] = dict.fromkeys(('area', 'window', 'screen', 'all'), old)
                 self.data['shortcut_actions'] = {**DEFAULTS['shortcut_actions'],
                                                  **(self.data['shortcut_actions'] or {})}
+                if self.data['pattern'] == OLD_DEFAULT_PATTERN:
+                    self.data['pattern'] = DEFAULTS['pattern']
         except (OSError, ValueError):
             pass
 

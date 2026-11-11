@@ -51,7 +51,7 @@ install -m 644 "$ROOT/data/io.github.webhookstudios.Dewdrop.take-over.desktop" "
 
 cat > "$STAGE/usr/share/doc/dewdrop/copyright" <<EOT
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Dewdrop (formerly Snip)
+Upstream-Name: Dewdrop
 Source: https://github.com/webhookstudios/dewdrop
 
 Files: *
@@ -81,7 +81,7 @@ Section: graphics
 Priority: optional
 Homepage: https://github.com/webhookstudios/dewdrop
 Description: Screenshots with markup, for GNOME
- Dewdrop (formerly Snip) takes a screenshot of an area, a window, one screen or all screens,
+ Dewdrop takes a screenshot of an area, a window, one screen or all screens,
  from the Print key or its own window, and opens it in an editor with
  arrows, lines, boxes, ellipses, a pen, a highlighter, text, numbered
  steps, blur and pixelate, and crop. Copy the result, save it as PNG or

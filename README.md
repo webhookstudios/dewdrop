@@ -1,6 +1,6 @@
 # Dewdrop
 
-*Formerly Snip. Part of the Sedge family of webhookstudios apps.*
+*Part of the Sedge family of webhookstudios apps.*
 
 Screenshots with markup for Ubuntu. Press Print, drag out an area or click a window, then add arrows, boxes, numbered steps and blur before you copy, save or pin the result on screen.
 
@@ -80,10 +80,10 @@ Ubuntu 26.04 with GNOME Shell 50 on Wayland. Tested on Ubuntu 26.04 with GNOME S
 
 ### With the deb package (recommended)
 
-Download `dewdrop_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/dewdrop/releases/latest), then install it:
+Download `dewdrop_1.1.1_all.deb` from the [latest release](https://github.com/webhookstudios/dewdrop/releases/latest), then install it:
 
 ```bash
-sudo apt install ./dewdrop_1.1.0_all.deb
+sudo apt install ./dewdrop_1.1.1_all.deb
 ```
 
 Log out and back in, open **Dewdrop** from the apps menu, and click **Turn On** in its banner to switch on the Print key shortcuts.
